@@ -1,0 +1,94 @@
+
+{% extends 'base_index.html' %}
+{% load static %}
+{% block title %}
+    MCC-Videos
+{% endblock %}
+{% block contactinfo %}
+    <i class="fas fa-envelope"></i> <a href="{{about.email}}">{{about.email}}</a>
+    <i class="fas fa-phone"></i> {{about.contact}}
+{% endblock contactinfo %}
+{% block makeappointment %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'upload' 'Sheet' %}" class="appointment-btn scrollto">Upload Sheet</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="appointment-btn scrollto">Login</a>
+    {% endif %}
+
+{% endblock makeappointment %}
+{% block content %}
+ <!-- ======= Videos Section ======= -->
+    <section id="gallery" class="gallery">
+      <div class="container">
+
+        <div class="section-title" style="margin-top:80px;">
+            <div class="container">
+                <div class="row">
+
+                    {% include 'partials/_messages.html' %}
+                    <div class="col">
+                        <h2>Videos</h2>
+                    </div>
+                    {% if user.is_authenticated and user.is_staff %}
+                        <div class=" col-sm-2 mb-2">
+                            <a href="{% url 'upload' 'videos' 'Act_Video' %}" class="btn btn-primary" type="button">
+                                Upload<span class="d-none d-md-inline"> Video</span>
+                            </a>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+           <p class="mt-4">
+               <form class="row">
+                    <div class="form-group has-search col-10 "  id="fieldtext" style="display:block;">
+                        <span class="fa fa-search form-control-feedback" style="position: absolute;
+                                                                                    z-index: 2;
+                                                                                    display: block;
+                                                                                    width: 2.375rem;
+                                                                                    height: 2.375rem;
+                                                                                    line-height: 2.375rem;
+                                                                                    text-align: center;
+                                                                                    pointer-events: none;
+                                                                                    color: #aaa;"></span>
+                        <input name='q' type="text" class="form-control" id="searchField" placeholder="Search by date[yyyy-mm-dd] or year[yyyy]" style="padding-left: 2.375rem; margin:auto;">
+                     </div>
+                    <!-- Example split button -->
+                    <div class="btn-group col-2" >
+                      <button type="submit" class="btn btn-success shadow-sm"><i class="fa fa-search"></i></button>
+                    </div>
+                </form>
+           </p>
+        </div>
+        <div class=" container mb-4">
+            <p class="card-header font-italic bg-warning">Total Items: {{Act_vid.count}}
+                {% if Act_vid.count == 1 %}
+                    Item
+                {% else%}
+                    Items
+                {% endif %}
+            </p>
+
+            <div class="row card-body">
+                {% for video in page_obj %}
+                        <div class="col-6 col-sm-6 col-xl-3 col-md-4 col-xxl-2 gallery-item shadow-sm">
+                              <a href="{{video.file.url}}" class="glightbox play-btn" >
+                                  <video width=100% height=200px preload="metadata" >
+                                      <source src="{{video.file.url}}#t=0.5" type="video/mp4" class="img-fluid">
+                                  </video>
+                                  <div class="card-footer">
+                                      <small class="text-muted">{{video.uploaded_at}}</small>
+                                   </div>
+                              </a>
+                        </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        {% include 'partials/_pagination.html' %}
+      </div>
+
+    </section><!-- End videos Section -->
+
+{% include 'partials/_footers.html' %}
+{% endblock content %}

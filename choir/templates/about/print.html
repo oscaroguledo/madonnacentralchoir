@@ -1,0 +1,72 @@
+{% extends 'base_index.html' %}
+{% load static %}
+{% block title %}
+    MCC-Print-{{campus}}
+{% endblock %}
+
+{% block contactinfo %}
+    <i class="fas fa-envelope"></i> <a href="{{about.email}}">{{about.email}}</a>
+    <i class="fas fa-phone"></i> {{about.contact}}
+{% endblock contactinfo %}
+{% block makeappointment %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'upload' 'Sheet' %}" class="appointment-btn scrollto">Upload Sheet</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="appointment-btn scrollto">Login</a>
+    {% endif %}
+
+{% endblock makeappointment %}
+{% block content %}
+<!-- ======= activities Section ======= -->
+    <section id="library" class="services">
+      <div class="container">
+
+        <div class="section-title" style="margin-top:80px;">
+            <div class="container"  >
+                <h2>Print</h2>
+            </div>
+        </div>
+          <div class=" container mb-4 card">
+            <p class="card-header font-italic bg-warning">Print
+            </p>
+
+            <div class="row card-body " >
+                    <div class="container">
+                        <form  method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                                <!-- Form Group (username)-->
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputcampus">Enter the Campus</label>
+                                    <input name="campus" class="form-control" id="inputcampus" type="text" placeholder="Enter your camous" value="{{campus}}" readonly>
+                                </div>
+                                <!-- Form Row-->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (first name)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="id_session">Session</label>
+                                        <div>
+                                            <select name="session" class="select form-control" required id="id_session">{% for sess in sessions %}<option value="{{sess}}">{{sess}}</option>{% endfor %}</select>
+                                        </div>
+                                    </div>
+                                    <!-- Form Group (last name)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="id_Select">Select</label>
+                                        <div>
+                                            <select name="Select" class="select form-control" required id="id_Select"><option value="All">All</option> <option value="Excecutives">Excecutives</option> <option value="Floor Members">Floor Members</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Save changes button-->
+                            <button class="btn btn-success mt-1" type="submit" >Print</button>
+                        </form>
+                    </div>
+            </div>
+
+        </div>
+
+      </div>
+    </section><!-- End activities Section -->
+
+{% include 'partials/_footers.html' %}
+{% endblock content %}

@@ -1,0 +1,63 @@
+{% load i18n static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:'en-us' }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>{% block title %}{% endblock %}</title>
+  <!-- Favicons -->
+    <link href="{% static 'admin/img/favicon.png' %}" rel="icon">
+    <link href="{% static 'admin/img/favicon.png' %}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'admin/css/style.css' %}" rel="stylesheet">
+  </head>
+
+
+  <body>
+    <!-- ======= Header ======= -->
+    {% if user.is_authenticated and user.is_staff %}
+        {% include "admin/nav_topbar.html" %}
+    {% endif %}
+    <!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+    {% if user.is_authenticated and user.is_staff %}
+        <aside id="sidebar" class="sidebar">
+              {% include "admin/nav_sidebar.html" %}
+        </aside><!-- End Sidebar-->
+    {% endif %}
+    {% block content %}
+      {% block object-tools %}{% endblock %}
+    {% endblock %}
+    <br class="clear">
+
+    <!-- END Content -->
+    {% block footer %}
+      {% if user.is_authenticated and user.is_staff %}
+          <!-- ======= Footer ======= -->
+          {% include 'admin/partials/_footer.html' %}
+      {% endif %}
+    {% endblock %}
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{% static 'admin/js/main.js' %}"></script>
+
+  </body>
+</html>

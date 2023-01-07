@@ -1,0 +1,142 @@
+{% extends 'base_index.html' %}
+{% load static %}
+{% block title %}
+    MCC-Profile-{{profile.firstname}} {{profile.lastname}}
+{% endblock %}
+
+{% block contactinfo %}
+    <i class="fas fa-envelope"></i> <a href="{{about.email}}">{{about.email}}</a>
+    <i class="fas fa-phone"></i> {{about.contact}}
+{% endblock contactinfo %}
+{% block makeappointment %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'upload' 'Sheet' %}" class="appointment-btn scrollto">Upload Sheet</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="appointment-btn scrollto">Login</a>
+    {% endif %}
+
+{% endblock makeappointment %}
+{% block content %}
+<!-- ======= register Section ======= -->
+    <section id="register" class="appointment section-bg">
+      <div class="container">
+        <div class="section-title"  style="margin-top:80px;">
+          <h2>Profile</h2>
+          {% include 'partials/_messages.html' %}
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-4">
+                    <!-- Profile picture card-->
+                    <div class="card mb-4 mb-xl-0">
+                        <div class="card-header font-italic bg-warning"><b>Profile Picture</b></div>
+                        <div class="card-body text-center">
+                            <!-- Profile picture image-->
+                            <img class="img-account-profile rounded-circle mb-2" width='120px' height='120px' src="{{profile.image.url}}">
+                            <!-- Profile picture help block-->
+                            <h3 class="small font-italic text-muted mb-4 "><b>{{user.username}}</b></h3>
+                            <!-- Profile picture upload button-->
+                            <h5 class="btn btn-primary" >{% if exco.count >= 1 %}{% for e in exco %}{% if e.member == profile %}<p>{{e.position}},</p>{% endif %}{% endfor %}{% else %}None{% endif %}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8">
+                    <!-- Account details card-->
+                    <div class="card mb-4">
+                        <div class="card-header font-italic bg-warning"><b>User Details</b></div>
+                        <div class="card-body">
+                            <div class="container">
+                                <!-- Form Group (username)-->
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
+                                    <input disabled class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="{{user.username}}" readonly>
+                                </div>
+                                <!-- Form Row-->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (first name)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputFirstName">First name</label>
+                                        <input disabled class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="{{profile.firstname}}" readonly>
+                                    </div>
+                                    <!-- Form Group (last name)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputLastName">Last name</label>
+                                        <input  disabled class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="{{profile.lastname}}" readonly>
+                                    </div>
+                                </div>
+                                <!-- Form Row        -->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (organization name)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputcampusName">Campus</label>
+                                        <input disabled  class="form-control" id="inputcampusName" type="text" placeholder="Enter your campus" value="{{profile.campus}}" readonly>
+                                    </div>
+                                    <!-- Form Group (location)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputstate">State Of Origin</label>
+                                        <input disabled  class="form-control" id="inputstate" type="text" placeholder="Enter your location" value="{{profile.state}}" readonly>
+                                    </div>
+                                </div>
+                                <!-- Form Group (email address)-->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (organization name)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputpartName">Part</label>
+                                        <input disabled  class="form-control" id="inputpartName" type="text" placeholder="Enter your part" value="{{profile.part}}" readonly>
+                                    </div>
+                                    <!-- Form Group (birthday)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputBirthday">Birthday</label>
+                                        <input disabled  class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="{{profile.birthday}}" readonly>
+                                    </div>
+                                </div>
+                                <!-- Form Row-->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (phone number)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputPosition">{% if exco.count == 1 %}Executive Position{% else %}Executive Positions{% endif %}</label>
+                                        <input disabled  class="form-control" id="inputPosition" type="tel" placeholder="Enter your position" value="{% if exco.count >= 1 %}{% for e in exco %}{% if e.member == profile %}{{e.position}}({{e.session}}),{% endif %}{% endfor %}{% else %}None{% endif %}" readonly>
+                                    </div>
+                                    <!-- Form Group (birthday)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputmaritalstatus">Marital Status</label>
+                                        <input disabled  class="form-control" id="inputmaritalstatus" type="text" name="birthday" placeholder="Enter your status" value="{{profile.marital_status}}" readonly>
+                                    </div>
+                                </div>
+                                <!-- Form Row-->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (phone number)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputPhone">Phone number</label>
+                                        <input disabled  class="form-control" id="inputPhone" type="tel" placeholder="phone number" value="{{profile.phone_num}}" readonly>
+                                    </div>
+
+                                    <!-- Form Group (joinday)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputjoinday">Join Date</label>
+                                        <input  disabled class="form-control" id="inputjoinday" type="text" name="joinday" placeholder="Enter The day You Joined" value="{{profile.joindate}}" readonly>
+                                    </div>
+                                </div>
+                                <!-- Save changes button-->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (phone number)-->
+                                    <div class="col-md-6 mb-2">
+                                        <a href="{% url 'editprofile' user.username %}" class="btn btn-primary" type="button">Edit Profile</a>
+                                    </div>
+
+                                    <!-- Form Group (joinday)-->
+                                    <div class="col-md-6">
+                                        <a href="{% url 'reset_password' %}" class="btn btn-primary" type="button">Reset Password</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section><!-- End registration Section -->
+
+{% include 'partials/_footers.html' %}
+{% endblock content %}

@@ -1,0 +1,239 @@
+{% extends 'base_index.html' %}
+{% load static %}
+{% block title %}
+    MCC-About
+{% endblock %}
+{% block contactinfo %}
+    <i class="fas fa-envelope"></i> <a href="{{about.email}}">{{about.email}}</a>
+    <i class="fas fa-phone"></i> {{about.contact}}
+{% endblock contactinfo %}
+{% block makeappointment %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'upload' 'Sheet' %}" class="appointment-btn scrollto">Upload Sheet</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="appointment-btn scrollto">Login</a>
+    {% endif %}
+
+{% endblock makeappointment %}
+{% block content %}
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container-fluid">
+
+        <div class="section-title" style="margin-top:100px;">
+          <h2>About</h2>
+          {% include 'partials/_messages.html' %}
+        </div>
+
+        <div class="row">
+          <div class="col-xl-5 col-lg-6 video-box d-flex justify-content-center align-items-stretch position-relative">
+            <a href="/media/VID-20220613-WA0003.mp4" class="glightbox play-btn mb-4"></a>
+          </div>
+
+          <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">
+            <h3>Introduction</h3>
+            <p>It is no strange conception that the emergence of a strong and Noble Catholic University as Madonna University is endowed with a powerfully dedicated society being the Madonna Central Choir (MCC) Which has Uninterruptedly grown in strength both spiritually and physically.</p>
+
+            <div class="icon-box">
+              <div class="icon"><a href="{% url 'history' %}"><i class="fas fa-history"></i></a></div>
+              <h4 class="title"><a href="{% url 'history' %}">History</a></h4>
+              <p class="description">The documentation of the histories of MCC as a whole and even the various campuses</p>
+            </div>
+
+            <div class="icon-box">
+              {% if about.constitution.blank == True %}
+                  <div class="icon"><a href="{{about.constitution.url}}"><i class="fas fa-book"></i></a></div>
+                  <h4 class="title"><a href="{{about.constitution.url}}">Constitution</a></h4>
+              {% else %}
+                  <div class="icon"><a href="#"><i class="fas fa-book"></i></a></div>
+                  <h4 class="title"><a href="#">Constitution</a></h4>
+              {% endif %}
+              <p class="description">A documentation of the various laws guiding the association</p>
+            </div>
+
+            <div class="icon-box">
+              <div class="icon"><a class="scrollto" href="#campuses"><i class="fas fa-building"></i></a></div>
+              <h4 class="title"><a class="scrollto" href="#campuses">Campuses</a></h4>
+              <p class="description">Brief info about the various campuses</p>
+            </div>
+            <div class="icon-box">
+              <div class="icon"><a href="{% url 'registers' %}"><i class="fas fa-music"></i></a></div>
+              <h4 class="title"><a href="{% url 'registers' %}">Register</a></h4>
+              <p class="description">Check out the people in the choir</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+<!-- ======= Counts Section ======= -->
+    <section id="counts" class="counts">
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="fas fa-vote-yea"></i>
+              <span data-purecounter-start="0" data-purecounter-end="{{about_national.numerical_strength}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>National</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+            <div class="count-box">
+              <i class="fas fa-church"></i>
+              <span data-purecounter-start="0" data-purecounter-end="{{about_elele.numerical_strength}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Elele</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="count-box">
+              <i class="fas fa-atom"></i>
+              <span data-purecounter-start="0" data-purecounter-end="{{about_akpugo.numerical_strength}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Akpugo</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="count-box">
+              <i class="fas fa-business-time"></i>
+              <span data-purecounter-start="0" data-purecounter-end="{{about_okija.numerical_strength}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Okija</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Counts Section -->
+<!-- ======= Executives Section ======= -->
+    <section id="campuses" class="campuses">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Campuses</h2>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-6">
+            <div class="member align-items-start">
+              <div class="member-info counts p-1 shadow-sm rounded " data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor:pointer;">
+                  <h4>National Body</h4>
+                  <span>Location:</span>
+                  <p>{{about_national.location}}</p>
+              </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">National body</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body ">
+                            <p class="justify" style="overflow-wrap:break-word;">Location:{{about_national.location}}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mt-4 mt-lg-0">
+            <div class="member align-items-start">
+              <div class="member-info counts p-1 shadow-sm rounded " data-bs-toggle="modal" data-bs-target="#staticBackdrop2" style="cursor:pointer;">
+                  <h4>Elele</h4>
+                  <span>Location:</span>
+                  <p>{{about_elele.location}}</p>
+              </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel2">Elele</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body ">
+                            <p style="overflow-wrap:break-word;">Location:{{about_elele.location}}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mt-4">
+            <div class="member align-items-start">
+              <div class="member-info counts p-1 shadow-sm rounded " data-bs-toggle="modal" data-bs-target="#staticBackdrop3" style="cursor:pointer;">
+                  <h4>Okija</h4>
+                  <span>Location:</span>
+                  <p>{{about_okija.location}}</p>
+              </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel3" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel3">Okija</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body ">
+                            <p style="overflow-wrap:break-word;">Location:{{about_okija.location}}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mt-4" >
+            <div class="member align-items-start" >
+              <div class="member-info counts p-1 shadow-sm rounded " data-bs-toggle="modal" data-bs-target="#staticBackdrop4" style="cursor:pointer;">
+                  <h4>Akpugo</h4>
+                  <span>Location:</span>
+                  <p>{{about_akpugo.location}}</p>
+              </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel4" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel4">Akpugo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body ">
+                            <p style="overflow-wrap:break-word;">Location:{{about_akpugo.location}}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End executives Section -->
+{% include 'partials/_footers.html' %}
+{% endblock content %}

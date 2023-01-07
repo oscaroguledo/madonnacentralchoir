@@ -1,0 +1,108 @@
+{% extends 'base_index.html' %}
+{% load static %}
+{% block title %}
+    MCC-Upload {{media}}
+{% endblock %}
+{% load crispy_forms_tags %}
+{% block contactinfo %}
+    <i class="fas fa-envelope"></i> <a href="{{about.email}}">{{about.email}}</a>
+    <i class="fas fa-phone"></i> {{about.contact}}
+{% endblock contactinfo %}
+{% block makeappointment %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'upload' 'Sheet' %}" class="appointment-btn scrollto">Upload Sheet</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="appointment-btn scrollto">Login</a>
+    {% endif %}
+
+{% endblock makeappointment %}
+{% block content %}
+<!-- ======= register Section ======= -->
+    <section id="register" class="appointment section-bg">
+      <div class="container">
+
+        <div class="section-title" style="margin-top:100px;">
+            {% include 'partials/_messages.html' %}
+          <h2>Upload {{media}}</h2>
+
+        </div>
+        <div class="container">
+    <div class="row d-flex">
+        <div class="col-xl-8 flex-fill">
+            <!-- Account details card-->
+            <div class="card mb-4">
+                <div class="card-header font-italic bg-warning"><b>Upload {{media}}</b></div>
+                <div class="card-body">
+                    <form class="container" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <!-- Form Group (username)-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="id_title">Name of the Song (the name you give the video will appear to others)</label>
+                            <div>
+                                <input type="text" name="title" class="textinput textInput form-control" required id="id_title" value="{{values.title}}">
+                            </div>
+
+                        </div>
+                        <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (first name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="id_composer">Composer of Song</label>
+                                <div>
+                                    <input type="text" name="composer" class="textinput textInput form-control" required id="id_composer" value="{{values.composer}}">
+                                </div>
+                            </div>
+                            <!-- Form Group (last name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="id_type">Type of Song</label>
+                                <div>
+                                    <select name="type" class="select form-control" required id="id_type"> <option value="" selected>---------</option> <option value="Liturgy">Liturgy</option> <option value="Classical">Classical</option> <option value="Cultural">Cultural</option> <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Form Row        -->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (organization name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="id_part_of_calender">Part Of Calender</label>
+                                <div>
+                                    <select name="part_of_calender" class="select form-control" required id="id_part_of_calender"> <option value="{{values.part_of_calender}}" selected>---------</option> <option value="None">None</option> <option value="Ordinary">Ordinary</option> <option value="Advent">Advent</option> <option value="Christmas">Christmas</option> <option value="Lent">Lent</option> <option value="Easter">Easter</option> <option value="Pentecost">Pentecost</option> <option value="Christ The King">Christ The King</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Form Group (location)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="id_part_of_mass">Part of Mass</label>
+                                <div>
+                                    <select name="part_of_mass" class="select form-control" required id="id_part_of_mass"> <option value="{{values.part_of_mass}}" selected>---------</option> <option value="None">None</option> <option value="Entrance">Entrance</option> <option value="Lord Have Mercy">Lord Have Mercy</option> <option value="Glory be to God">Glory be to God</option> <option value="Creed">Creed</option> <option value="Prayer of the Faithful">Prayer of the Faithful</option> <option value="Offertory/Thanksgiving">Offertory/Thanksgiving</option> <option value="Consecration">Consecration</option> <option value="Holy">Holy</option> <option value="Our Father">Our Father</option> <option value="Lord Have Mercy">Lord Have Mercy</option> <option value="Communion">Communion</option> <option value="Dismissal">Dismissal</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Form Group (email address)-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (location)-->
+                            <div class="col-md-12">
+                                <label class="small mb-1" for="id_file">Select File</label>
+                                <div>{{media}}
+                                    <input multiple type="file" name="file" class="clearablefileinput form-control-file btn btn-secondary m-0" required id="id_file" style="width:100%;" accept="{% if media == 'Sheet' or media == 'sheet' %}
+                                                                                                                                                                                                application/pdf
+                                                                                                                                                                                            {% elif media == 'Video' or media == 'video' %}
+                                                                                                                                                                                                    .mp4,.mov,.flv,.avi
+                                                                                                                                                                                            {% elif media == 'Audio' or media == 'audio' %}.mp3,.ogg,.wav{% endif %}">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Save changes button-->
+                        <button id="upload" class="btn btn-success mt-1" type="submit" title="{{user.username}} just uploaded {{media}}-">Upload</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+      </div>
+    </section><!-- End registration Section -->
+{% include 'partials/_footers.html' %}
+{% endblock content %}

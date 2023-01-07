@@ -1,0 +1,58 @@
+{% extends 'base_index.html' %}
+{% load static %}
+{% block title %}
+    MCC-Activities
+{% endblock %}
+{% block contactinfo %}
+    <i class="fas fa-envelope"></i> <a href="{{about.email}}">{{about.email}}</a>
+    <i class="fas fa-phone"></i> {{about.contact}}
+{% endblock contactinfo %}
+{% block makeappointment %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'upload' 'Sheet' %}" class="appointment-btn scrollto">Upload Sheet</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="appointment-btn scrollto">Login</a>
+    {% endif %}
+
+{% endblock makeappointment %}
+{% block content %}
+<!-- ======= activities Section ======= -->
+    <section id="services" class="services">
+      <div class="container">
+
+        <div class="section-title" style="margin-top:100px;">
+          <h2>Activities</h2>
+          {% include 'partials/_messages.html' %}
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch"  style="margin:auto;">
+            <a href="{% url 'gallery' %}" class="icon-box flex-fill">
+              <div class="icon"><i class="fas fa-camera"></i></div>
+              <h4>Gallery</h4>
+              <p></p>
+              <div class="card-footer ">
+                  <b style="color:black;">Total:{{gal_count}}</b>
+              </div>
+            </a>
+          </div>
+
+           <!--
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" style="margin:auto;">
+            <a href="{% url 'act_videos' %}" class="icon-box flex-fill">
+              <div class="icon"><i class="fas fa-film"></i></div>
+              <h4>Videos</h4>
+              <p></p>
+              <div class="card-footer ">
+                  <b style="color:black;">Total:{{Act_vid_count}}</b>
+              </div>
+            </a>
+          </div> -->
+
+
+        </div>
+
+      </div>
+    </section><!-- End activities Section -->
+{% include 'partials/_footers.html' %}
+{% endblock content %}

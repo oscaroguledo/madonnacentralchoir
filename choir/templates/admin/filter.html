@@ -1,0 +1,11 @@
+{% load i18n %}
+<h3 class="card-title">{% blocktranslate with filter_title=title %} By {{ filter_title }}: {% endblocktranslate %}</h3>
+<div class="m-1">
+{% for choice in choices %}
+    <div {% if choice.selected %} class="selected"{% endif %}>
+        <a class=" text-primary" href="{{ choice.query_string|iriencode }}" title="{{ choice.display }}">
+            {{ choice.display }}
+        </a>
+    </div>
+{% endfor %}
+</div>

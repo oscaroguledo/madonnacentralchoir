@@ -1,0 +1,18 @@
+{% load i18n admin_urls %}
+
+{% block object-tools-items %}
+  {% if has_add_permission %}
+      {% url cl.opts|admin_urlname:'add' as add_url %}
+          {% if not 'Profile' in cl.opts.verbose_name %}
+              <a href="{% add_preserved_filters add_url %}" class="addlink btn btn-success">
+                {% blocktranslate with cl.opts.verbose_name as name %}
+                <span class="d-inline-block float-right ">
+                    <i class="bi bi-plus"></i>
+                </span>
+                <span class="d-inline-block" >{{ name }}</span>
+
+                {% endblocktranslate %}
+              </a>
+          {% endif %}
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,183 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+{% block title %}
+    Administrator-DashBoard
+{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content %}
+  <main id="main" class="main">
+    {% include 'partials/_messages.html' %}
+
+    <div class="pagetitle">
+        <h1>Dashboard</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-lg-7">
+          <div class="row">
+
+            <!-- Sales Card -->
+            <div class="col-xxl-4 col-md-6">
+              <a class="card info-card sales-card" href="{% for app in app_list %} {% for model in app.models %}{% if user.campus in model.name and 'Profile' in model.name %}account/profile_{{user.campus.lower}}{% endif %} {% endfor %} {% endfor %}">
+                <div class="card-body">
+                  <h5 class="card-title">Users
+                      <span>|{% for app in app_list %}
+                          {% for model in app.models %}
+                              {% if user.campus in model.name and 'Profile' in model.name %}
+                                    {{model.name}}
+                              {% else %}
+                              {% endif %}
+                          {% endfor %}
+                          {% endfor %}</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-person-circle"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{% for app in app_list %} {% for model in app.models %}{% if user.campus in model.name and 'Profile' in model.name %}{{model.count.0}}{% endif %} {% endfor %} {% endfor %}</h6>
+
+                    </div>
+                  </div>
+                </div>
+
+              </a>
+            </div><!-- End Sales Card -->
+
+            <!-- Revenue Card -->
+            <div class="col-xxl-4 col-md-6">
+              <a class="card info-card revenue-card" href="{% for app in app_list %} {% for model in app.models %}{% if model.name == 'Act_videos' %}{{model.admin_url}}{% endif %} {% endfor %} {% endfor %}">
+
+
+                <div class="card-body">
+                  <h5 class="card-title">{% for app in app_list %}
+                      {% if app.name == 'Activities' %}{{app.name}}{% endif %}{% endfor %}
+                    <span>| {% for app in app_list %} {% for model in app.models %}{% if model.name == 'Act_videos' %}{{model.name}}{% endif %} {% endfor %} {% endfor %}</span>
+                  </h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-journals"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{% for app in app_list %} {% for model in app.models %}{% if model.name == 'Act_videos' %}{{model.count.0}}{% endif %} {% endfor %} {% endfor %}</span></h6>
+
+                    </div>
+                  </div>
+                </div>
+
+              </a>
+            </div><!-- End Revenue Card -->
+
+            <!-- Customers Card -->
+            <div class="col-xxl-4 col-xl-12">
+
+              <a class="card info-card customers-card" href="{% for app in app_list %} {% for model in app.models %}{% if model.name == 'Sheets' %}{{model.admin_url}}{% endif %} {% endfor %} {% endfor %}">
+
+
+                <div class="card-body">
+                  <h5 class="card-title">{% for app in app_list %}{% if app.name == 'Library' %}{{app.name}}{% endif %}{% endfor %}
+                    <span>| {% for app in app_list %} {% for model in app.models %}{% if model.name == 'Sheets' %}{{model.name}}{% endif %} {% endfor %} {% endfor %}</span>
+                  </h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-menu-button-wide"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{% for app in app_list %} {% for model in app.models %}{% if model.name == 'Sheets' %}{{model.count.0}}{% endif %} {% endfor %} {% endfor %}</h6>
+
+                    </div>
+                  </div>
+
+                </div>
+              </a>
+
+            </div><!-- End Customers Card -->
+
+
+          </div>
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+        <div class="col-lg-5">
+
+          <!-- filter -->
+          <div class="card">
+
+            <div class="card-body">
+              <h5 class="card-title">Recent Activity <span></span></h5>
+                {% load log %}
+            {% get_admin_log 10 as admin_log for_user user %}
+                {% if not admin_log %}
+                    <p>{% translate 'None available' %}</p>
+                {% else %}
+                      <div class="activity">
+                          {% for entry in admin_log %}
+                            <div class="activity-item d-flex ">
+                                {% if entry.is_deletion or not entry.get_admin_url %}
+                                      <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                                      <div class="activity-content">
+                                          <a href="#" class="fw-bold text-dark">{{ entry}}</a>
+                                          {% if entry.content_type %}
+                                                <span class="mini quiet small">{% filter capfirst %}
+                                                                                    {{ entry.content_type.name }}
+                                                                                {% endfilter %}
+                                                </span>
+                                        {% else %}
+                                            <span class="mini quiet small">{% translate 'Unknown content' %}</span>
+                                        {% endif %}
+                                          <small class="activity-label text-danger"> {{ entry.action_time}}</small>
+                                      </div>
+                                {% else %}
+                                      <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                                      <div class="activity-content">
+                                          <a href="{{ entry.get_admin_url }}" class="fw-bold text-dark">{{ entry}}</a>
+                                          {% if entry.content_type %}
+                                              <span class="mini quiet small">{% filter capfirst %}
+                                                                                    {{ entry.content_type.name }}
+                                                                                {% endfilter %}
+                                              </span>
+                                          {% else %}
+                                              <span class="mini quiet small">{% translate 'Unknown content' %}</span>
+                                          {% endif %}
+                                          <small class="activity-label text-success">{{ entry.action_time}}</small>
+                                      </div>
+                                {% endif %}
+
+                            </div><!-- End activity item-->
+
+                          {% endfor %}
+                      </div>
+            {% endif %}
+
+            </div>
+          </div><!-- End Recent Activity -->
+
+
+        </div><!-- End Right side columns -->
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+
+
+{% endblock %}
+

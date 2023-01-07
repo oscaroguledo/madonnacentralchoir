@@ -1,0 +1,52 @@
+{% extends 'base_index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+    MCC-Login
+{% endblock %}
+
+{% block contactinfo %}
+    <i class="fas fa-envelope"></i> <a href="{{about.email}}">{{about.email}}</a>
+    <i class="fas fa-phone"></i> {{about.contact}}
+{% endblock contactinfo %}
+
+{% block content %}
+<!-- ======= register Section ======= -->
+    <section id="register" class="appointment section-bg">
+      <div class="container" >
+
+        <div class="section-title " style="margin-top:80px;">
+          <h2>Login</h2>
+
+            <div class="row ">
+              <div class="col-md-5  container">
+                  {% include 'partials/_messages.html' %}
+              </div>
+            </div>
+        </div>
+
+        <form action="{% url 'login' %}" method="post" class="php-email-form">
+          {% csrf_token %}
+            <div class="row ">
+              <div class="col-md-5 form-group container">
+                  <input placeholder="Username" type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" class="textinput textInput form-control {% if username_errors == True %}is-invalid{% endif %}" required id="id_username" value="{{values.username}}">
+              </div>
+            </div>
+            <div class="row ">
+              <div class="col-md-5 form-group container mt-3">
+                  <input placeholder="Password" type="password" name="password" autocomplete="current-password" class="textinput textInput form-control {% if pwd_errors == True %}is-invalid{% endif %}" required id="id_password" value="{{values.password}}">
+              </div>
+            </div>
+
+          <div class="text-center mt-3">
+              <button type="submit">Login</button>
+              <p style="text-align:center" class="row mt-0">
+              <a  class="text-center small col-9" href="{% url 'reset_password' %}"> Forgot password..?</a>
+          </p>
+          </div></br></br>
+        </form>
+
+
+      </div>
+    </section><!-- End registration Section -->
+{% endblock content %}

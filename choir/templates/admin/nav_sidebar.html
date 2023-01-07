@@ -1,0 +1,61 @@
+{% load i18n static %}
+
+<aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+            <a class="nav-link " href="{% url 'admin:index' %}">
+              <i class="bi bi-grid"></i>
+              <span>Dashboard</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+        {% include 'admin/app_list.html' with app_list=available_apps show_changelinks=False %}
+
+
+      <li class="nav-heading">Pages</li>
+
+      <li class="nav-item">
+          {% if user.profile_elele  %}
+            <a class="nav-link collapsed" href="/admin/account/profile_elele/{{user.profile_elele.id}}/change/">
+              <i class="bi bi-person"></i>
+              <span> My Profile</span>
+            </a>
+          {% endif %}
+          {% if user.profile_akpugo  %}
+            <a class="nav-link collapsed" href="/admin/account/profile_akpugo/{{user.profile_akpugo.id}}/change/">
+              <i class="bi bi-person"></i>
+              <span> My Profile</span>
+            </a>
+          {% endif %}
+          {% if user.profile_okija  %}
+            <a class="nav-link collapsed" href="/admin/account/profile_okija/{{user.profile_okija.id}}/change/">
+              <i class="bi bi-person"></i>
+              <span> My Profile</span>
+            </a>
+          {% endif %}
+          {% if user.profile_national  %}
+            <a class="nav-link collapsed" href="/admin/account/profile_national/{{user.profile_national.id}}/change/">
+              <i class="bi bi-person"></i>
+              <span> My Profile</span>
+            </a>
+          {% endif %}
+      </li><!-- End Profile Page Nav -->
+
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'logout' %}">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Sign Out</span>
+                </a>
+            </li><!-- End Login Page Nav -->
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'login' %}">
+              <i class="bi bi-box-arrow-left"></i>
+              <span>Sign In</span>
+            </a>
+          </li><!-- End Login Page Nav -->
+        {% endif %}
+
+    </ul>
+
+  </aside><!-- End Sidebar-->

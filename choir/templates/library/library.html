@@ -1,0 +1,77 @@
+{% extends 'base_index.html' %}
+{% load static %}
+{% block title %}
+    MCC-Library
+{% endblock %}
+{% block contactinfo %}
+    <i class="fas fa-envelope"></i> <a href="{{about.email}}">{{about.email}}</a>
+    <i class="fas fa-phone"></i> {{about.contact}}
+{% endblock contactinfo %}
+{% block makeappointment %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'upload' 'Sheet' %}" class="appointment-btn scrollto">Upload Sheet</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="appointment-btn scrollto">Login</a>
+    {% endif %}
+
+{% endblock makeappointment %}
+{% block content %}
+<!-- ======= activities Section ======= -->
+    <section id="services" class="services">
+      <div class="container">
+
+        <div class="section-title"  style="margin-top:80px;">
+          <h2 style="margin-top:80px;">Library</h2>
+           <p class="container">This is an Archive of all Music, Pictures etc...</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <a href="{% url 'audio' %}" class="icon-box flex-fill">
+              <div class="icon"><i class="fas fa-music"></i></div>
+              <h4>Audio</h4>
+              <p>Explore the archives to Check out the audio files available...</p>
+              <div class="card-footer ">
+                  <b style="color:black;">Total:{{audio_count}}</b>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+            <a href="{% url 'sheet' %}" class="icon-box flex-fill">
+              <div class="icon"><i class="fas fa-receipt"></i></div>
+              <h4>Sheet/Copies</h4>
+              <p>Explore the archives to Check out the sheets or copies available...</p>
+              <div class="card-footer ">
+                  <b style="color:black;">Total:{{sheet_count}}</b>
+              </div>
+            </a>
+          </div>
+
+          <!--<div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+            <a href="{% url 'video' %}" class="icon-box flex-fill">
+              <div class="icon"><i class="fas fa-film"></i></div>
+              <h4>Videos</h4>
+              <p>Explore the archives to Check out the video files available...</p>
+              <div class="card-footer ">
+                  <b style="color:black;">Total:{{video_count}}</b>
+              </div>
+            </a>
+          </div>
+          -->
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 " style="margin:auto;">
+            <a href="{% url 'document' %}" class="icon-box flex-fill">
+              <div class="icon"><i class="fas fa-book"></i></div>
+              <h4>Official Documents</h4>
+              <p>Explore the archives to Check out the official documents available...</p>
+              <div class="card-footer ">
+                  <b style="color:black;">Total:{{document_count}}</b>
+              </div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End activities Section -->
+{% include 'partials/_footers.html' %}
+{% endblock content %}

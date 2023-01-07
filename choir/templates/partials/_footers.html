@@ -1,0 +1,98 @@
+<footer id="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 footer-contact">
+            <h3><span class="d-none d-md-inline">Madonna Central Choir - </span>MCC</h3>
+            <p>
+              Elele, <br>
+              Okija, Akpugo,<br>
+              Nigeria. <br><br>
+              <strong>Phone:</strong> {{about.contact}}<br>
+              <strong>Email:</strong> {{about.email}}<br>
+            </p>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-links">
+            <h4>Other Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right scrollto"></i> <a href="{% url 'home' %}">Home</a></li>
+              <li><i class="bx bx-chevron-right scrollto"></i> <a href="{% url 'activities' %}">Activities</a></li>
+              <li><i class="bx bx-chevron-right scrollto"></i> <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop5">The 7 Commandments</a></li>
+              <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel5" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel5">The 7 Commandments</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body ">
+                            <p style="overflow-wrap:break-word;">Commandments:{{about.commandments}}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <li><i class="bx bx-chevron-right scrollto"></i> <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop6">The Anthem</a></li>
+              <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop6" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel6" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel6">The Anthem</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body ">
+                            <p style="overflow-wrap:break-word;">Anthem:{{about.Anthem}}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <li><i class="bx bx-chevron-right scrollto"></i> <a href="#"data-bs-toggle="modal" data-bs-target="#staticBackdrop7">Slogan/Motto</a></li>
+              <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop7" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel7" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel7">Slogan/Motto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body ">
+                            <p style="overflow-wrap:break-word;">Slogan:{{about.slogan}}</p>
+                            <p style="overflow-wrap:break-word;">Motto:{{about.motto}}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </ul>
+          </div>
+
+
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container d-md-flex py-4">
+
+      <div class="me-md-auto text-center text-md-start">
+        <div class="copyright">
+          &copy; Copyright <strong><span>Madonna Central Choir</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          Designed by <a href="{{about.email}}">Oscar Oguledo</a>
+        </div>
+      </div>
+    </div>
+  </footer><!-- End Footer -->

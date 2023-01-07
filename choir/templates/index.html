@@ -1,0 +1,87 @@
+{% extends 'base_index.html' %}
+{% load static %}
+{% block title %}
+    MCC-Home Page
+{% endblock %}
+
+{% block contactinfo %}
+    <i class="fas fa-envelope"></i> <a href="{{about.email}}">{{about.email}}</a>
+    <i class="fas fa-phone"></i> {{about.contact}}
+{% endblock contactinfo %}
+
+{% block makeappointment %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'upload' 'Sheet' %}" class="appointment-btn scrollto">Upload Sheet</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="appointment-btn scrollto">Login</a>
+    {% endif %}
+
+{% endblock makeappointment %}
+
+{% block content %}
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center ">
+
+    <div class="container">
+      {% include 'partials/_messages.html' %}
+      <h1 style="color:white;">Welcome to MCC</h1>
+      <h2 style="color:white;">Let Your Light Shine! <i style="color:rgb(255, 165, 0);" class='fas fa-smile-wink'></i></h2>
+      <a href="{% url 'about' %}" class="btn-get-started scrollto">Get Started</a>
+    </div>
+  </section><!-- End Hero -->
+
+    <!-- ======= Why Us Section ======= -->
+    <section id="why-us" class="why-us">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-4 d-flex align-items-stretch">
+            <div class="content">
+              <h3>Madonna Central Choir?</h3>
+              <p>
+                Additionally, choir members receive private vocal lessons from distinguished teachers right in The University.
+                Due to the high level of sight-reading and vocal technique in the ensemble, rapport quickly develops within the choir and rehearsals are efficient,
+                focused, and fun. The rehearsals, which last for...
+              </p>
+              <div class="text-center">
+                <a href="{% url 'history' %}" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 d-flex align-items-stretch">
+            <div class="icon-boxes d-flex flex-column justify-content-center">
+              <div class="row">
+                <div class="col-xl-4 d-flex align-items-stretch">
+                  <a href="{% url 'audio' %}" class="icon-box mt-4 mt-xl-0">
+                    <i class="fas fa-music"></i>
+                    <h4>Audios</h4>
+                    <p>Explore the archives to Check out the audio files available...</p>
+                  </a>
+                </div>
+                <div class="col-xl-4 d-flex align-items-stretch">
+                  <a href="{% url 'sheet' %}" class="icon-box mt-4 mt-xl-0">
+                    <i class="fas fa-receipt"></i>
+                    <h4>Scores</h4>
+                    <p>Explore the archives to Check out the sheets or copies available...</p>
+                  </a>
+                </div>
+                <!--<div class="col-xl-4 d-flex align-items-stretch">
+                  <a href="{% url 'video' %}" class="icon-box mt-4 mt-xl-0">
+                    <i class="fas fa-film"></i>
+                    <h4>Videos</h4>
+                    <p>Explore the archives to Check out the video files available...</p>
+                  </a>
+                </div>-->
+              </div>
+            </div><!-- End .content-->
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Why Us Section -->
+<!-- ======= activities Section ======= -->
+
+    <!-- End activities Section -->
+{% include 'partials/_footers.html' %}
+{% endblock content %}

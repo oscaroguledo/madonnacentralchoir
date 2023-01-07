@@ -1,0 +1,235 @@
+{% load i18n %}
+
+{% if app_list %}
+  {% for app in app_list %}
+      <li class="nav-item app-{{ app.app_label }} module{% if app.app_url in request.path|urlencode %} current-app{% endif %}">
+            <a class="nav-link collapsed section" title="{% blocktranslate with name=app.name %}Models in the {{ name }} application{% endblocktranslate %}" data-bs-target="#components-nav{{ app.app_label }}" data-bs-toggle="collapse" href="{{ app.app_url }}">
+                <i class="{% if app.name == 'Account' %}bi bi-person-circle{% endif %}
+                             {% if app.name == 'About' %}bi bi-info-circle{% endif %}
+                             {% if app.name == 'Library' %}bi bi-menu-button-wide{% endif %}
+                             {% if app.name == 'Activities' %}bi bi-journals{% endif %}
+                             {% if app.name == 'Notification' %}bi bi-bell{% endif %}
+                             {% if app.name == 'Authentication and Authorization' %}bi bi-card-list{% endif %}"></i>
+                <span>{{ app.name }}</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+            <ul id="components-nav{{ app.app_label }}" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                {% for model in app.models %}
+                    {% if user.campus == 'Akpugo'  and user.campus in model.name %}
+                      <li class="row model-{{ model.object_name|lower }}{% if model.admin_url in request.path|urlencode %} current-model{% endif %}">
+                          {% if model.admin_url %}
+                            <a class="col-9" href="{{ model.admin_url }}">
+                              <span>
+                                  {{ model.name }}
+                              </span>
+                            </a>
+                          {% else %}
+                            <a class="col-9" href="{{ model.admin_url }}">
+                              <span>
+                                  {{ model.name }}
+                              </span>
+                            </a>
+                          {% endif %}
+
+                          {% if model.add_url %}
+                                {% if not 'Profile' in model.name  %}
+                                    <a href="{{ model.add_url }}" class="addlink col-3"><i class="bi bi-plus" style='font-size:24px'></i></a>
+                                {% endif %}
+                          {% else %}
+
+                          {% endif %}
+
+                          {% if model.admin_url and show_changelinks %}
+                              {% if model.view_only %}
+                                <a href="{{ model.admin_url }}" class="viewlink col-3"><i class="bi bi-show-alt" style='font-size:24px'></i></a>
+                              {% else %}
+                                <a href="{{ model.admin_url }}" class="changelink col-3"><i class="bi bi-plus" style='font-size:24px'></i></a>
+                              {% endif %}
+                          {% elif show_changelinks %}
+
+                          {% endif %}
+                      </li>
+                    {% endif %}
+                    {% if user.campus == 'Elele' and user.campus in model.name %}
+                      <li class="row model-{{ model.object_name|lower }}{% if model.admin_url in request.path|urlencode %} current-model{% endif %}">
+                          {% if model.admin_url %}
+                            <a class="col-9" href="{{ model.admin_url }}">
+                              <span>
+                                  {{ model.name }}
+                              </span>
+                            </a>
+                          {% else %}
+                            <a class="col-9" href="{{ model.admin_url }}">
+                              <span>
+                                  {{ model.name }}
+                              </span>
+                            </a>
+                          {% endif %}
+
+                          {% if model.add_url %}
+                                {% if not 'Profile' in model.name  %}
+                                    <a href="{{ model.add_url }}" class="addlink col-3"><i class="bi bi-plus" style='font-size:24px'></i></a>
+                                {% endif %}
+                          {% else %}
+
+                          {% endif %}
+
+                          {% if model.admin_url and show_changelinks %}
+                              {% if model.view_only %}
+                                <a href="{{ model.admin_url }}" class="viewlink col-3"><i class="bi bi-show-alt" style='font-size:24px'></i></a>
+                              {% else %}
+                                <a href="{{ model.admin_url }}" class="changelink col-3"><i class="bi bi-plus" style='font-size:24px'></i></a>
+                              {% endif %}
+                          {% elif show_changelinks %}
+
+                          {% endif %}
+                      </li>
+                    {% endif %}
+                    {% if user.campus == 'Okija' and user.campus in model.name %}
+                      <li class="row model-{{ model.object_name|lower }}{% if model.admin_url in request.path|urlencode %} current-model{% endif %}">
+                          {% if model.admin_url %}
+                            <a class="col-9" href="{{ model.admin_url }}">
+                              <span>
+                                  {{ model.name }}
+                              </span>
+                            </a>
+                          {% else %}
+                            <a class="col-9" href="{{ model.admin_url }}">
+                              <span>
+                                  {{ model.name }}
+                              </span>
+                            </a>
+                          {% endif %}
+
+                          {% if model.add_url %}
+                                {% if not 'Profile' in model.name  %}
+                                    <a href="{{ model.add_url }}" class="addlink col-3"><i class="bi bi-plus" style='font-size:24px'></i></a>
+                                {% endif %}
+                          {% else %}
+
+                          {% endif %}
+
+                          {% if model.admin_url and show_changelinks %}
+                              {% if model.view_only %}
+                                <a href="{{ model.admin_url }}" class="viewlink col-3"><i class="bi bi-show-alt" style='font-size:24px'></i></a>
+                              {% else %}
+                                <a href="{{ model.admin_url }}" class="changelink col-3"><i class="bi bi-plus" style='font-size:24px'></i></a>
+                              {% endif %}
+                          {% elif show_changelinks %}
+
+                          {% endif %}
+                      </li>
+                    {% endif %}
+                    {% if user.campus == 'National' and user.campus in model.name %}
+                      <li class="row model-{{ model.object_name|lower }}{% if model.admin_url in request.path|urlencode %} current-model{% endif %}">
+                          {% if model.admin_url %}
+                            <a class="col-9" href="{{ model.admin_url }}">
+                              <span>
+                                  {{ model.name }}
+                              </span>
+                            </a>
+                          {% else %}
+                            <a class="col-9" href="{{ model.admin_url }}">
+                              <span>
+                                  {{ model.name }}
+                              </span>
+                            </a>
+                          {% endif %}
+
+                          {% if model.add_url %}
+                                {% if not 'Profile' in model.name  %}
+                                    <a href="{{ model.add_url }}" class="addlink col-3"><i class="bi bi-plus" style='font-size:24px'></i></a>
+                                {% endif %}
+                          {% else %}
+
+                          {% endif %}
+
+                          {% if model.admin_url and show_changelinks %}
+                              {% if model.view_only %}
+                                <a href="{{ model.admin_url }}" class="viewlink col-3"><i class="bi bi-show-alt" style='font-size:24px'></i></a>
+                              {% else %}
+                                <a href="{{ model.admin_url }}" class="changelink col-3"><i class="bi bi-plus" style='font-size:24px'></i></a>
+                              {% endif %}
+                          {% elif show_changelinks %}
+
+                          {% endif %}
+                      </li>
+                    {% endif %}
+                    {% if user.campus == 'None' %}
+                      <li class="row model-{{ model.object_name|lower }}{% if model.admin_url in request.path|urlencode %} current-model{% endif %}">
+                          {% if model.admin_url %}
+                            <a class="col-9" href="{{ model.admin_url }}">
+                              <span>
+                                  {{ model.name }}
+                              </span>
+                            </a>
+                          {% else %}
+                            <a class="col-9" href="{{ model.admin_url }}">
+                              <span>
+                                  {{ model.name }}
+                              </span>
+                            </a>
+                          {% endif %}
+
+                          {% if model.add_url %}
+                                {% if not 'Profile' in model.name  %}
+                                    <a href="{{ model.add_url }}" class="addlink col-3"><i class="bi bi-plus" style='font-size:24px'></i></a>
+                                {% endif %}
+                          {% else %}
+
+                          {% endif %}
+
+                          {% if model.admin_url and show_changelinks %}
+                              {% if model.view_only %}
+                                <a href="{{ model.admin_url }}" class="viewlink col-3"><i class="bi bi-show-alt" style='font-size:24px'></i></a>
+                              {% else %}
+                                <a href="{{ model.admin_url }}" class="changelink col-3"><i class="bi bi-plus" style='font-size:24px'></i></a>
+                              {% endif %}
+                          {% elif show_changelinks %}
+
+                          {% endif %}
+                      </li>
+                    {% elif 'amp' in model.name or 'User' in model.name or 'About' in model.name or 'Group' in model.name or 'Audio' in model.name  or 'Sheet' in model.name or 'Document' in model.name or 'aller' in model.name  %}
+                    <!--or 'Video' in model.name or  'Act' in model.name-->
+                <li class="row model-{{ model.object_name|lower }}{% if model.admin_url in request.path|urlencode %} current-model{% endif %}">
+                          {% if model.admin_url %}
+                            <a class="col-9" href="{{ model.admin_url }}">
+                              <span>
+                                  {{ model.name }}
+                              </span>
+                            </a>
+                          {% else %}
+                            <a class="col-9" href="{{ model.admin_url }}">
+                              <span>
+                                  {{ model.name }}
+                              </span>
+                            </a>
+                          {% endif %}
+
+                          {% if model.add_url %}
+                                {% if not 'Profile' in model.name  %}
+                                    <a href="{{ model.add_url }}" class="addlink col-3"><i class="bi bi-plus" style='font-size:24px'></i></a>
+                                {% endif %}
+                          {% else %}
+
+                          {% endif %}
+
+                          {% if model.admin_url and show_changelinks %}
+                              {% if model.view_only %}
+                                <a href="{{ model.admin_url }}" class="viewlink col-3"><i class="bi bi-show-alt" style='font-size:24px'></i></a>
+                              {% else %}
+                                <a href="{{ model.admin_url }}" class="changelink col-3"><i class="bi bi-plus" style='font-size:24px'></i></a>
+                              {% endif %}
+                          {% elif show_changelinks %}
+
+                          {% endif %}
+                      </li>
+                    {% endif %}
+
+                {% endfor %}
+            </ul>
+      </li><!-- End Components Nav -->
+  {% endfor%}
+{% else %}
+  <p>{% translate 'You don’t have permission to view or edit anything.' %}</p>
+{% endif %}

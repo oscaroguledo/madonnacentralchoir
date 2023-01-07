@@ -1,0 +1,20 @@
+{% load i18n admin_urls admin_modify %}
+<div class="submit-row row m-2">
+    {% block submit-row %}
+        {% if show_save %}
+            <input id="Save" type="submit" value="Save" class="default col btn btn-sm btn-success m-2" name="_save">
+        {% endif %}
+        {% if opts.verbose_name_plural|capfirst != 'Profiles' %}
+            {% if show_delete_link and original %}
+                {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
+                <a id="deletelink" href="{% add_preserved_filters delete_url %}" class=" deletelink-box deletelink text-white col btn btn-sm btn-danger m-2">{% translate "Delete" %}</a>
+            {% endif %}
+        {% endif %}
+        {% if show_save_as_new %}<input id="Save_as new" type="submit" value="{% translate 'Save as new' %}" name="_saveasnew" class="col btn btn-sm btn-success m-2">{% endif %}
+        {% if opts.verbose_name_plural|capfirst != 'Profiles' %}
+            {% if show_save_and_add_another %}<input id="Save and add another" type="submit" value="{% translate 'Save and add another' %}" name="_addanother" class="col btn btn-sm btn-success m-2">{% endif %}
+        {% endif %}
+        {% if show_save_and_continue %}<input id="Save and continue editing" type="submit" value="{% if can_change %}{% translate 'Save and continue editing' %}{% else %}{% translate 'Save and view' %}{% endif %}" name="_continue" class="col btn btn-sm btn-success m-2">{% endif %}
+        {% if show_close %}<a id="closelink" href="{% url opts|admin_urlname:'changelist' %}" class="closelink col btn btn-sm btn-danger m-2">{% translate 'Close' %}</a>{% endif %}
+    {% endblock %}
+</div>

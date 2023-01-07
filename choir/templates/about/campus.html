@@ -1,0 +1,78 @@
+{% extends 'base_index.html' %}
+{% load static %}
+{% block title %}
+    MCC-Register-{{campus}}
+{% endblock %}
+
+{% block contactinfo %}
+    <i class="fas fa-envelope"></i> <a href="{{about.email}}">{{about.email}}</a>
+    <i class="fas fa-phone"></i> {{about.contact}}
+{% endblock contactinfo %}
+{% block makeappointment %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'upload' 'Sheet' %}" class="appointment-btn scrollto">Upload Sheet</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="appointment-btn scrollto">Login</a>
+    {% endif %}
+
+{% endblock makeappointment %}
+
+{% block content %}
+<!-- ======= activities Section ======= -->
+    <section id="library" class="services">
+      <div class="container">
+
+        <div class="section-title" style="margin-top:80px;">
+            <div class="container"  >
+                <div class="row">
+                    <div class="col">
+                        <h2>Register</h2>
+                    </div>
+                    <div class=" col-sm-2 mb-2">
+                            <a href="{% url 'print' campus  %}" class="btn btn-primary" type="button">
+                                Print<span class="d-none d-md-inline"> Register</span>
+                            </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+          <div class=" container mb-4 card">
+            <p class="card-header font-italic bg-warning">Total Current Members: {{members_count}}
+                {% if members_count == 1 %}
+                    Member
+                {% else%}
+                    Members
+                {% endif %}
+            </p>
+
+            <div class="row card-body " >
+                {% if members_count == 0 %}
+                    <div class="m-2 pt-3 shadow-sm col-12">
+                        <p>
+                            <small class="text">
+                                <b>No Result For members Found</b>
+                            </small>
+                        </p>
+                    </div>
+                {% else%}
+                    {% for memb in page_obj %}
+                        <div class=" col-6 col-sm-6 col-md-4 col-xl-3 col-xxl-2 card mt-2 p-2 shadow-sm bg-light rounded " >
+                            <a href="{% url 'profile' memb.user.username %}" >
+                                <small class="text">
+                                    <b>
+                                        {{memb}}
+                                        <small class="text-muted ">[{{memb.part}}]</small>
+                                    </b>
+                                </small>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+        </div>
+
+      </div>
+    </section><!-- End activities Section -->
+{% include 'partials/_footers.html' %}
+{% endblock content %}

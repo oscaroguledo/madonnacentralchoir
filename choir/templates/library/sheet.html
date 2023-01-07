@@ -1,0 +1,116 @@
+{% extends 'base_index.html' %}
+{% load static %}
+{% block title %}
+    MCC-Library-Sheet
+{% endblock %}
+{% block contactinfo %}
+    <i class="fas fa-envelope"></i> <a href="{{about.email}}">{{about.email}}</a>
+    <i class="fas fa-phone"></i> {{about.contact}}
+{% endblock contactinfo %}
+{% block makeappointment %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'upload' 'Sheet' %}" class="appointment-btn scrollto">Upload Sheet</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="appointment-btn scrollto">Login</a>
+    {% endif %}
+
+{% endblock makeappointment %}
+{% block content %}
+<!-- ======= activities Section ======= -->
+    <section id="library" class="services">
+      <div class="container">
+
+        <div class="section-title" style="margin-top:100px;">
+            <div class="container"  >
+                <div class="row">
+                    {% include 'partials/_messages.html' %}
+                    <div class="col">
+                        <h2>Sheet/Copies</h2>
+                    </div>
+                </div>
+            </div>
+           <p>This is an Archive of all Sheet or copies</p>
+        </div>
+          <div class=" container mb-4 card">
+            <p class="card-header font-italic bg-warning">Total Items: {{sheet.count}}
+                {% if sheet.count == 1 %}
+                    Item
+                {% else%}
+                    Items
+                {% endif %}
+            </p>
+
+            <div class="row card-body">
+                {% if search == 0 %}
+                    <div class="row mt-2 pt-3 shadow-sm">
+                        <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                            <a href="{% url 'sheet_type' 'Liturgy' %}" class="icon-box flex-fill" >
+                              <div class="icon"><i class="fas fa-church"></i></div>
+                              <h4>Liturgy</h4>
+                              <p>This section is for songs to be  sang during the liturgy of the mass</p>
+                                <div class="card-footer ">
+                                    <b style="color:black;">Items:{{liturgy_sheet_count}}</b>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+                            <a href="{% url 'sheet_type' 'Classical' %}" class="icon-box flex-fill">
+                              <div class="icon"><i class="fas fa-guitar" ></i></div>
+                              <h4>Classicals</h4>
+                              <p>This section is for songs to be  sang during christmas</p>
+                                <div class="card-footer ">
+                                    <b style="color:black;">Items:{{classical_sheet_count}}</b>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+                            <a href="{% url 'sheet_type' 'Cultural' %}" class="icon-box flex-fill">
+                              <div class="icon"><i class="fas fa-globe-africa"></i></div>
+                              <h4>Cultural</h4>
+                              <p>This section is for songs to be  sang for cultural occasions</p>
+                                <div class="card-footer ">
+                                    <b style="color:black;">Items:{{cultural_sheet_count}}</b>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" style="margin:auto;">
+                            <a href="{% url 'sheet_type' 'Others' %}" class="icon-box flex-fill">
+                              <div class="icon"><i class="fas fa-record-vinyl"></i></div>
+                              <h4>Others</h4>
+                              <p>This section is for songs that are yet to be classified</p>
+                                <div class="card-footer ">
+                                    <b style="color:black;">Items:{{others_sheet_count}}</b>
+                                </div>
+                            </a>
+
+                        </div>
+                    </div>
+                {% elif search == 1 %}
+                    {% for sheet in page_obj %}
+                        <div class="card mt-2 p-2 shadow-sm bg-light rounded col-6 col-sm-6 col-md-4 col-xl-3 col-xxl-2">
+                            <a class="col" href="{% url 'viewsheet' sheet.type sheet.title %}">
+                                <small class="text">
+                                    <b>
+                                        {{sheet}}
+                                        {% if sheet.type == 'none' %}
+                                        {% else %}
+                                            <small class="text-muted ">[{{sheet.type}}]</small>
+                                        {% endif %}
+                                    </b>
+                                </small>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+        </div>
+          {% include 'partials/_pagination.html' %}
+
+      </div>
+    </section><!-- End activities Section -->
+{% include 'partials/_footers.html' %}
+{% endblock content %}

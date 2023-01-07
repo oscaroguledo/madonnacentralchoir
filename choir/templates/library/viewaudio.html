@@ -1,0 +1,97 @@
+
+{% extends 'base_index.html' %}
+{% load static %}
+{% block title %}
+    MCC-Audios
+{% endblock %}
+{% block contactinfo %}
+    <i class="fas fa-envelope"></i> <a href="{{about.email}}">{{about.email}}</a>
+    <i class="fas fa-phone"></i> {{about.contact}}
+{% endblock contactinfo %}
+{% block makeappointment %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'upload' 'Sheet' %}" class="appointment-btn scrollto">Upload Sheet</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="appointment-btn scrollto">Login</a>
+    {% endif %}
+
+{% endblock makeappointment %}
+{% block content %}
+ <!-- ======= Audios Section ======= -->
+    <section id="gallery" class="gallery">
+        <div class="container" style="margin-top:80px;">
+            <div class="row d-flex">
+                <div class="col-xl-8 flex-fill">
+                    <div class="card mb-4">
+                        <div class="card-header font-italic bg-warning"><b>{{audio}}</b></div>
+                        <div class="card-body">
+                            <div class="container">
+                                <audio preload="metadata"  controls class="form-control  bg-success">
+                                    <source src="{{audio.file.url}}#t=0.5" type="audio/mp4" class="img-fluid">
+                                </audio>
+                                <!-- Form Group (username)-->
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputUsername">Title/name of the song</label>
+                                    <input  disabled  class="form-control" id="inputUsername" type="text" placeholder="Enter the title" value="{{audio.title}}" readonly>
+                                </div>
+                                <!-- Form Row-->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (first name)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputFirstName">Composer</label>
+                                        <input  disabled  class="form-control" id="inputFirstName" type="text" placeholder="Enter the Composers name" value="{{audio.composer}}" readonly>
+                                    </div>
+                                    <!-- Form Group (last name)-->
+                                    <div class="col-md-6 row">
+                                        <div class="col-md-6">
+                                            <label class="small mb-1" for="inputLastName">Type</label>
+                                            <input  disabled  class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="{{audio.type}}" readonly>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="small mb-1" for="inputFirstName">Notation</label>
+                                            <input  disabled class="form-control" id="inputnotation" type="text" value="{{audio.details}}" readonly>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- Form Row        -->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (organization name)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputcampusName">Calender</label>
+                                        <input  disabled  class="form-control" id="inputcampusName" type="text" placeholder="Enter your organization name" value="{{audio.part_of_calender}}" readonly>
+                                    </div>
+                                    <!-- Form Group (location)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputstate">Part of Mass</label>
+                                        <input  disabled  class="form-control" id="inputstate" type="text" placeholder="Enter your location" value="{{audio.part_of_mass}}" readonly>
+                                    </div>
+                                </div>
+                                <!-- Form Group (email address)-->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (organization name)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputpartName">Uploader</label>
+                                        <input  disabled  class="form-control" id="inputpartName" type="text" placeholder="Enter your organization name" value="{{audio.uploader}}" readonly>
+                                    </div>
+                                    <!-- Form Group (location)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputmembership">Date Uploaded</label>
+                                        <input  disabled  class="form-control" id="inputmembership" type="text" placeholder="Enter your location" value="{{audio.uploaded_at}}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container card mb-4" style="margin-top:80px;">
+
+
+        </div>
+
+    </section><!-- End videos Section -->
+{% include 'partials/_footers.html' %}
+{% endblock content %}

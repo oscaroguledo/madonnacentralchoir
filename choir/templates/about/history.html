@@ -1,0 +1,49 @@
+{% extends 'base_index.html' %}
+{% load static %}
+{% block title %}
+    MCC-History
+{% endblock %}
+
+{% block contactinfo %}
+    <i class="fas fa-envelope"></i> <a href="{{about.email}}">{{about.email}}</a>
+    <i class="fas fa-phone"></i> {{about.contact}}
+{% endblock contactinfo %}
+{% block makeappointment %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'upload' 'Sheet' %}" class="appointment-btn scrollto">Upload Sheet</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="appointment-btn scrollto">Login</a>
+    {% endif %}
+
+{% endblock makeappointment %}
+{% block content %}
+    <!-- ======= history Section ======= -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title" style="margin-top:100px;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                                <h2>History</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+
+      <div class="container mb-4">
+            <div class="row card-body">
+                {% for history in page_obj %}
+                    <p class="card-header font-italic bg-warning"><b>{{history}}</b></p>
+
+                    <p class="justify">{{history.history|linebreaksbr}}</p>
+                {% endfor %}
+            </div>
+          {% include 'partials/_pagination.html' %}
+      </div>
+      </div>
+
+    </section><!-- End activities Section -->
+
+{% include 'partials/_footers.html' %}
+{% endblock content %}

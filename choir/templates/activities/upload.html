@@ -1,0 +1,68 @@
+{% extends 'base_index.html' %}
+{% load static %}
+{% block title %}
+    MCC-Upload {{media}}
+{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block contactinfo %}
+    <i class="fas fa-envelope"></i> <a href="{{about.email}}">{{about.email}}</a>
+    <i class="fas fa-phone"></i> {{about.contact}}
+{% endblock contactinfo %}
+{% block makeappointment %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'upload' 'Sheet' %}" class="appointment-btn scrollto">Upload Sheet</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="appointment-btn scrollto">Login</a>
+    {% endif %}
+
+{% endblock makeappointment %}
+{% block content %}
+<!-- ======= register Section ======= -->
+    <section id="register" class="appointment section-bg">
+      <div class="container">
+
+        <div class="section-title" style="margin-top:80px;">
+          <h2>Upload {{media}}</h2>
+          {% include 'partials/_messages.html' %}
+        </div>
+        <div class="container">
+    <div class="row d-flex">
+        <div class="col-xl-8 flex-fill">
+            <!-- Account details card-->
+            <div class="card mb-4">
+                <div class="card-header font-italic bg-warning"><b>Upload {{media}}</b></div>
+                <div class="card-body">
+                    <form class="container" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <!-- Form Group (email address)-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (organization name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="id_description">Description</label>
+                                <div>
+                                    <input class="form-control" name="description" id="id_description" type="text">
+                                </div>
+                            </div>
+                            <!-- Form Group (location)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="id_file">Select File</label>
+                                <div>
+                                    <input multiple type="file" name="file" class="clearablefileinput form-control-file btn btn-secondary m-0" required id="id_file" style="width:100%;" accept="{% if media == 'Act_Video' %}.mp4,.mov,.flv,.avi{% else %}image/*{% endif %}">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Save changes button-->
+                        <button class="btn btn-success mt-1" type="submit" >Upload</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+      </div>
+    </section><!-- End registration Section -->
+
+{% include 'partials/_footers.html' %}
+{% endblock content %}
